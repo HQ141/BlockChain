@@ -4,6 +4,8 @@
 #include<time.h>
 #include<thread>
 #include<fstream>
+#include<iomanip>
+#include<direct.h>
 using namespace std;
 using json = nlohmann::json;
 class status {
@@ -22,6 +24,15 @@ public:
 		object["Id"] = "";
 		object["TimeStamp"] = "";
 	}
+	friend istream& operator >> (istream& in, Data& da) {
+		in >> da.object;
+		stringstream strs;
+		time_t now = time(0);
+		strs << ctime(&now);
+		da.object["TimeStamp"] = strs.str();
+		return in;
+	}
+	
 	void set(string name, string id) {
 		object["Name"] = name;
 		object["Id"] = id;
@@ -67,12 +78,31 @@ int Mine(json object, status& curr, int id) {
 		int a;
 		while (curr.verify != curr.iMinners - 1)
 			this_thread::sleep_for(chrono::milliseconds(390));
+		fstream config;
+		string str = to_string(id) + "/Config.txt";
+		if (!_mkdir(to_string(id).c_str())) {
+			config.open(str, ios::out);
+			config << 0;
+			a = 0;
+			config.close();
+		}
+		else {
+			string str = to_string(id) + "/Config.txt";
+			config.open(str, ios::in);
+			config >> a;
+			config.close();
+		}
+		config.open(str, ios::out);
 		fstream fi;
-		string str = to_string(id) + ".txt";
+		str = to_string(id)+"/" +to_string(a)+ ".txt";
+		a++;
 		fi.open(str, ios::app);
 		object["Minner Id"] = to_string(id);
+		object["Minner Item Id"] = to_string(a);
 		object["Verified By"] = to_string(curr.verify);
-		fi << object;
+		fi <<setw(4)<< object;
+		config << a;
+		config.close();
 		fi.close();
 		return 1;
 	}

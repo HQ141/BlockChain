@@ -5,7 +5,6 @@
 #include"Puzzle_data.h"
 using namespace std;
 using json = nlohmann::json;
-
 template <class D,class P> 
 class Corporation {
 private:

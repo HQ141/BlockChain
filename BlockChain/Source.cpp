@@ -14,11 +14,9 @@ int main() {
 	string id;
 	a.open("Text.txt", ios::in);
 	while (!a.eof()) {
-		a >> name;
-		a >> id;
-		data.set(name, id);
+		a >> data;
+		if (a.peek()==EOF)
+			break;
 		cc.start(data.getjson());
 	}
-
-	
 }
