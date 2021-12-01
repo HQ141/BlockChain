@@ -50,18 +50,17 @@ public:
 	}
 	json getjson() { return object; }
 };
-int Mine(json object, status& curr, int id) {
+int Mine(json object, status& curr, int id,int mod) {
 	stringstream obj;
 	obj << object;
 	string a;
 	size_t temp = 0;
 	bool me = false;
-	int i = 0;
-	for (; i < 1000; i++) {
-
+	int i = (mod/curr.iMinners)*id;
+	for (;; i++) {
 		if (curr.minned)
 			break;
-		a = obj.str() + to_string(i);
+		a = obj.str() + to_string(i%mod);
 		if (curr.minned)
 			break;
 		if (std::hash<string>{}(a) == curr.hash) {
@@ -79,15 +78,18 @@ int Mine(json object, status& curr, int id) {
 		while (curr.verify != curr.iMinners - 1)
 			this_thread::sleep_for(chrono::milliseconds(390));
 		fstream config;
-		string str = to_string(id) + "/Config.txt";
-		if (!_mkdir(to_string(id).c_str())) {
+		string conf = "Config/" + to_string(id);
+		string fconf = to_string(id);
+		string str = "Config/"+ to_string(id) + "/Config.txt";
+		if (!_mkdir(conf.c_str())){
+			_mkdir(fconf.c_str());
 			config.open(str, ios::out);
 			config << 0;
 			a = 0;
 			config.close();
 		}
 		else {
-			string str = to_string(id) + "/Config.txt";
+			string str = "Config/" + to_string(id) + "/Config.txt";
 			config.open(str, ios::in);
 			config >> a;
 			config.close();
