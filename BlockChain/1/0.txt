@@ -1,8 +1,0 @@
-{
-    "Id": "20K-0357",
-    "Minner Id": "1",
-    "Minner Item Id": "1",
-    "Name": "Amir Khan",
-    "TimeStamp": "Wed Dec  1 10:08:24 2021\n",
-    "Verified By": "2"
-}

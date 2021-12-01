@@ -10,11 +10,11 @@ using namespace std;
 using json = nlohmann::json;
 class status {
 public:
-	int verify = 0;
-	bool minned = false;
-	int ans;
-	size_t hash;
-	int iMinners;
+	atomic_int verify = 0;
+	atomic_bool minned = false;
+	atomic_int ans;
+	atomic_size_t hash;
+	atomic_int iMinners;
 };
 class Data {
 public:
@@ -50,7 +50,7 @@ public:
 	}
 	json getjson() { return object; }
 };
-int Mine(json object, status& curr, int id,int mod) {
+void Mine(json object, status& curr,size_t &data_hash,int id,int mod) {
 	stringstream obj;
 	obj << object;
 	string a;
@@ -76,7 +76,7 @@ int Mine(json object, status& curr, int id,int mod) {
 	if (me) {
 		int a;
 		while (curr.verify != curr.iMinners - 1)
-			this_thread::sleep_for(chrono::milliseconds(390));
+			this_thread::sleep_for(chrono::milliseconds(90));
 		fstream config;
 		string conf = "Config/" + to_string(id);
 		string fconf = to_string(id);
@@ -96,7 +96,7 @@ int Mine(json object, status& curr, int id,int mod) {
 		}
 		config.open(str, ios::out);
 		fstream fi;
-		str = to_string(id)+"/" +to_string(a)+ ".txt";
+		str = to_string(id)+"/" +to_string(a)+ ".json";
 		a++;
 		fi.open(str, ios::app);
 		object["Minner Id"] = to_string(id);
@@ -106,14 +106,16 @@ int Mine(json object, status& curr, int id,int mod) {
 		config << a;
 		config.close();
 		fi.close();
-		return 1;
+		data_hash=hash<string>{}(obj.str());
+		return;
+		
 	}
 	else {
 		this_thread::sleep_for(chrono::seconds(5));
 		a = obj.str() + to_string(curr.ans);
 		if (std::hash<string>{}(a) == curr.hash)
 			curr.verify++;
-		return 0;
+		return;
 	}
 
 }

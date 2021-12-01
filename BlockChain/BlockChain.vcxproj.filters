@@ -20,14 +20,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Miner.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="json.hpp">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="Miner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Puzzle_data.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
