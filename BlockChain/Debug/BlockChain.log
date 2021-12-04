@@ -1,6 +1,6 @@
 ﻿  Source.cpp
-C:\Users\HQ\source\repos\BlockChain\BlockChain\Miner.h(37,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\HQ\source\repos\BlockChain\BlockChain\Miner.h(36): message : while compiling class template member function 'int Corporation<json,status>::start(json)'
+C:\Users\HQ\source\repos\BlockChain\BlockChain\Miner.h(55,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\HQ\source\repos\BlockChain\BlockChain\Miner.h(54): message : while compiling class template member function 'int Corporation<json,status>::start(json)'
 C:\Users\HQ\source\repos\BlockChain\BlockChain\Source.cpp(21): message : see reference to function template instantiation 'int Corporation<json,status>::start(json)' being compiled
 C:\Users\HQ\source\repos\BlockChain\BlockChain\Source.cpp(10): message : see reference to class template instantiation 'Corporation<json,status>' being compiled
   BlockChain.vcxproj -> C:\Users\HQ\source\repos\BlockChain\Debug\BlockChain.exe

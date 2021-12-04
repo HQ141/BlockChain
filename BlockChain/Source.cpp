@@ -7,7 +7,7 @@
 using namespace std;
 using json = nlohmann::json;
 int main() {
-	Corporation<json, status> cc(Mine, 3);
+	Corporation<json, status> cc(Mine, 50);
 	fstream a;
 	Data data;
 	string name;
@@ -20,4 +20,11 @@ int main() {
 			break;
 		cc.start(data.getjson());
 	}
+	//a >> data;
+	//cc.start(data.getjson());
+	/*a >> data;
+	cc.start(data.getjson());
+	a >> data;
+	cc.start(data.getjson());*/
+
 }

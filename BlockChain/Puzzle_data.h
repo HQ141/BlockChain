@@ -10,11 +10,11 @@ using namespace std;
 using json = nlohmann::json;
 class status {
 public:
-	atomic_int verify = 0;
-	atomic_bool minned = false;
-	atomic_int ans;
-	atomic_size_t hash;
-	atomic_int iMinners;
+	int verify = 0;
+	bool minned = false;
+	int ans;
+	size_t hash;
+	int iMinners;
 };
 class Data {
 public:
@@ -75,8 +75,8 @@ void Mine(json object, status& curr,size_t &data_hash,int id,int mod) {
 	}
 	if (me) {
 		int a;
-		while (curr.verify != curr.iMinners - 1)
-			this_thread::sleep_for(chrono::milliseconds(90));
+		while (curr.verify >= (3*curr.iMinners)/2)
+			this_thread::sleep_for(chrono::milliseconds(300));
 		fstream config;
 		string conf = "Config/" + to_string(id);
 		string fconf = to_string(id);
@@ -111,11 +111,11 @@ void Mine(json object, status& curr,size_t &data_hash,int id,int mod) {
 		
 	}
 	else {
-		this_thread::sleep_for(chrono::seconds(5));
-		a = obj.str() + to_string(curr.ans);
-		if (std::hash<string>{}(a) == curr.hash)
-			curr.verify++;
-		return;
+			this_thread::sleep_for(chrono::milliseconds(20));
+			a = obj.str() + to_string(curr.ans);
+			if (std::hash<string>{}(a) == curr.hash)
+				curr.verify = curr.verify + 1;
+			return;
 	}
 
 }
