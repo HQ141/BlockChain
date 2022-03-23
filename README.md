@@ -1,2 +1,2 @@
-# BlockChain
-Reading Json objects from Text.txt
+# Proof Of Work
+Implementation of Proof Of Work in a controlled enviornment using multithreading in C++
